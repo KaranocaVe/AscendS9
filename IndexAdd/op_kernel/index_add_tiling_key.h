@@ -1,0 +1,28 @@
+#ifndef INDEX_ADD_TILING_KEY_H
+#define INDEX_ADD_TILING_KEY_H
+
+#include "ascendc/host_api/tiling/template_argument.h"
+
+#include <cstdint>
+
+constexpr uint32_t INDEX_ADD_KEY_DEFAULT = 0;
+constexpr uint32_t INDEX_ADD_KEY_COOP = 1;
+constexpr uint32_t INDEX_ADD_KEY_SOURCE_L2_BYPASS = 2;
+
+ASCENDC_TPL_ARGS_DECL(
+    IndexAdd,
+    ASCENDC_TPL_UINT_DECL(schMode, 2, ASCENDC_TPL_UI_LIST,
+        0, 1, 2));
+
+ASCENDC_TPL_SEL(
+    ASCENDC_TPL_ARGS_SEL(
+        ASCENDC_TPL_KERNEL_TYPE_SEL(ASCENDC_TPL_AIV_ONLY),
+        ASCENDC_TPL_UINT_SEL(schMode, ASCENDC_TPL_UI_LIST, 0)),
+    ASCENDC_TPL_ARGS_SEL(
+        ASCENDC_TPL_KERNEL_TYPE_SEL(ASCENDC_TPL_MIX_AIV_1_0),
+        ASCENDC_TPL_UINT_SEL(schMode, ASCENDC_TPL_UI_LIST, 1)),
+    ASCENDC_TPL_ARGS_SEL(
+        ASCENDC_TPL_KERNEL_TYPE_SEL(ASCENDC_TPL_AIV_ONLY),
+        ASCENDC_TPL_UINT_SEL(schMode, ASCENDC_TPL_UI_LIST, 2)));
+
+#endif

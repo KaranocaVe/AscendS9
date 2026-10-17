@@ -1,0 +1,31 @@
+#ifndef TRANSPOSE_TILING_KEY_H
+#define TRANSPOSE_TILING_KEY_H
+
+#include "ascendc/host_api/tiling/template_argument.h"
+
+#include <cstdint>
+
+constexpr uint32_t TRANSPOSE_KEY_COPY = 1;
+constexpr uint32_t TRANSPOSE_KEY_BLOCK_SWAP = 2;
+constexpr uint32_t TRANSPOSE_KEY_GENERIC_AFFINE = 3;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_SINGLE_MATRIX = 4;
+constexpr uint32_t TRANSPOSE_KEY_DENSE_MATRIX = 5;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_MATRIX = 6;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_NONFIXED_AXIS = 9;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_SINGLE_TBUF = 10;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_FIXED_MATRIX = 11;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_FIXED_COMPACT = 12;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_FIXED_PHASE_COMPACT = 13;
+constexpr uint32_t TRANSPOSE_KEY_STRIDED_FIXED_PHASE_MAJOR_COMPACT = 14;
+
+ASCENDC_TPL_ARGS_DECL(
+    Transpose,
+    ASCENDC_TPL_UINT_DECL(schMode, 4, ASCENDC_TPL_UI_LIST,
+        1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14));
+
+ASCENDC_TPL_SEL(ASCENDC_TPL_ARGS_SEL(
+    ASCENDC_TPL_KERNEL_TYPE_SEL(ASCENDC_TPL_AIV_ONLY),
+    ASCENDC_TPL_UINT_SEL(schMode, ASCENDC_TPL_UI_LIST,
+        1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14)));
+
+#endif
